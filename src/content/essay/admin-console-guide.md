@@ -6,6 +6,15 @@ date: 2026-04-24
 tags: [ "Admin Console", "指南" ]
 draft: false
 ---
+<cloudinary-picture
+  src="assets/images/alim-unsplash"
+  alt="TODO: describe this image"
+  width="4018"
+  height="3014"
+  sizes="(min-width: 768px) 720px, 100vw"
+  breakpoints="50, 402, 604, 715, 786, 873, 879, 1000"
+  picture-class="responsive-picture"
+/>
 
 Admin Console `/admin/`是本地后台入口，用于在 fork、clone 或自托管后接手站点配置与内容维护。
 

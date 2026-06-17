@@ -34,6 +34,7 @@ export const sanitizeSchema = {
     'figcaption',
     'picture',
     'source',
+    'cloudinary-picture',
     'summary',
     'details',
     'dialog',
@@ -70,6 +71,12 @@ export const sanitizeSchema = {
     h3: mergeAttrs(getSchemaAttrs('h3'), ['dataAdminOutlineKey', 'data-admin-outline-key']),
     img: mergeAttrs(getSchemaAttrs('img'), ['loading', 'decoding', 'width', 'height']),
     source: mergeAttrs(getSchemaAttrs('source'), ['srcset', 'srcSet', 'type', 'media', 'sizes']),
+    // Custom element mapped to src/components/Picture.astro via astro.config.mjs
+    // markdown.components. In .md posts attributes arrive as kebab-case strings.
+    'cloudinary-picture': [
+      'src', 'alt', 'width', 'height', 'sizes', 'breakpoints',
+      'picture-class', 'pictureClass', 'loading', 'decoding', 'transformations'
+    ],
     ul: [['className', 'gallery', 'cols-2', 'cols-3', 'contains-task-list', 'friend-list']],
     figure: [[
       'className',

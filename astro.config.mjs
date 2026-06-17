@@ -2,16 +2,17 @@ import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import svelte from '@astrojs/svelte';
+import tailwindcss from '@tailwindcss/vite';
 import { createPublicMarkdownConfig } from './src/plugins/markdown-pipeline.mjs';
 import { site, hasSiteUrl } from './site.config.mjs';
 
-const isProductionBuild = process.env.NODE_ENV === 'production';
+const isProductionBuild = import.meta.env.PROD || process.env.NODE_ENV === 'production';
 const SITEMAP_ROUTE_ROOTS = new Set(['about', 'admin', 'archive', 'bits', 'checks', 'essay', 'memo']);
 const rawDeploymentBase = process.env.ASTRO_WHONO_BASE_PATH ?? '/';
 
 const normalizeDeploymentBase = (value) => {
   const segment = String(value ?? '').trim().replace(/^\/+|\/+$/g, '');
-  return segment ? `/${segment}/` : '/';
+  return segment ? `/${segment}` : '/';
 };
 
 const deploymentBase = normalizeDeploymentBase(rawDeploymentBase);
@@ -45,30 +46,42 @@ const isExcludedSitemapPathname = (pathname) =>
   || /^\/essay\/[^/]+$/.test(pathname);
 
 const isExcludedSitemapEntry = (page) => isExcludedSitemapPathname(normalizeSitemapPathname(page));
+
 const integrations = [
-  ...(!isProductionBuild ? [svelte()] : []),
+  svelte(),
   ...(hasSiteUrl ? [sitemap({ filter: (page) => !isExcludedSitemapEntry(page) })] : [])
 ];
 
 export default defineConfig({
-  // Required for RSS generation. Prefer SITE_URL; fallback keeps build passing.
   site: site.url,
   base: deploymentBase,
-  // DEV 使用 server output 允许 Theme Console 的 /api/admin/settings/ 处理读写；
-  // 构建阶段回到 static，让 /admin/ 保持只读提示，并避免把该路径当作生产公开 API。
   output: isProductionBuild ? 'static' : 'server',
   integrations,
   trailingSlash: 'always',
   build: {
     inlineStylesheets: 'auto'
   },
+
+  markdown: {
+    ...createPublicMarkdownConfig({ base: deploymentBase }),
+    components: {
+      'cloudinary-picture': fileURLToPath(new URL('./src/components/Picture.astro', import.meta.url))
+    }
+  },
+
   vite: {
+    plugins: [tailwindcss()],
+    ssr: {
+      // Prevents Vite from parsing internal relative paths in the package during SSR/Build
+      noExternal: ['astro-cloudinary', '@radix-ui/*']
+    },
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url))
       }
     },
     optimizeDeps: {
+      // Prevents Vite from pre-bundling the package during static entrypoint building
       include: [
         'emoji-picker-element',
         '@lucide/svelte/icons/*',
@@ -78,8 +91,12 @@ export default defineConfig({
         '@codemirror/state',
         '@codemirror/view',
         '@lezer/highlight'
-      ]
+      ],
+      exclude: ['astro-cloudinary']
+    },
+    build: {
+      cssMinify: true,
+      minify: 'esbuild'
     }
-  },
-  markdown: createPublicMarkdownConfig({ base: deploymentBase })
+  }
 });

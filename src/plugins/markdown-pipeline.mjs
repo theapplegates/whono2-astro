@@ -10,6 +10,7 @@ import {
 } from './rehype-markdown-math-boundary.mjs';
 import { rehypeAboutDirectives, remarkAboutDirectives } from './about-directives.mjs';
 import remarkCallout from './remark-callout.mjs';
+import rehypeCloudinaryPicture from './rehype-cloudinary-picture.mjs';
 import { sanitizeSchema } from './sanitize-schema.mjs';
 import shikiToolbar from './shiki-toolbar.mjs';
 
@@ -87,6 +88,17 @@ export const markdownFeatureContract = Object.freeze([
     sanitizeSource: 'src/plugins/sanitize-schema.mjs',
     sanitizeStrategy: 'shared-schema',
     perFeatureSchemaMerge: false
+  },
+  {
+    id: 'cloudinary-picture',
+    syntax: 'raw-html',
+    projectPlugins: ['rehype-cloudinary-picture'],
+    // Astro's markdown.components substitution does not reach raw-HTML custom
+    // elements in .md, so a rehype plugin renders <cloudinary-picture> after
+    // sanitize. src/components/Picture.astro covers .mdx/.astro and shares the
+    // URL logic via src/plugins/cloudinary-picture.mjs.
+    render: 'rehype plugin (.md) + Picture.astro (.mdx/.astro)',
+    allowedTag: 'cloudinary-picture'
   }
 ]);
 
@@ -139,6 +151,7 @@ export const publicMarkdownRehypeSegments = Object.freeze([
       'rehypeRestoreMarkdownMathBoundary',
       'rehype-about-directives',
       'rehype-sanitize',
+      'rehype-cloudinary-picture',
       'rehype-katex'
     ]
   },
@@ -274,6 +287,10 @@ export const createProjectMarkdownRehypePlugins = ({ aboutBase = '/', aboutEnabl
     ...(aboutEnabled === undefined ? {} : { enabled: aboutEnabled })
   }],
   [rehypeSanitize, sanitizeSchema],
+  // Runs after rehype-raw (custom element is a real node) and after sanitize
+  // (element survives). Renders <cloudinary-picture> in .md posts; see the
+  // cloudinary-picture feature contract entry below.
+  rehypeCloudinaryPicture,
   rehypeKatex
 ];
 
