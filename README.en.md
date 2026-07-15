@@ -8,6 +8,8 @@
 
 A minimal two-column Astro theme for personal writing and lightweight publishing.
 
+Image placement and settings.
+
 ## Links
 
 - Live demo: <https://astro.whono.me>
@@ -62,10 +64,10 @@ If execution policy blocks `npm.ps1`, use one of the following:
 
 ### Common Commands
 
-  - `npm run dev`: start the local dev server
-  - `npm run build`: generate the static site
-  - `npm run preview`: preview the production build
-  - `npm run new:bit`: create a bits draft
+- `npm run dev`: start the local dev server
+- `npm run build`: generate the static site
+- `npm run preview`: preview the production build
+- `npm run new:bit`: create a bits draft
 
 <details>
   <summary>Maintainer checks</summary>
