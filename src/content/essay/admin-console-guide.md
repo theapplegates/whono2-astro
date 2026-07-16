@@ -7,6 +7,18 @@ tags: [ "Admin Console", "指南" ]
 draft: false
 ---
 <cloudinary-picture
+  src="assets/images/The-Gulfstream-G800.20250416"
+  alt="TODO: describe this image"
+  width="3600"
+  height="2400"
+  devices="1200|40|original,992|60|16:9,768|70|4:3,0|100|1:1"
+  breakpoints="50, 432, 647, 858, 1000"
+  picture-class="responsive-picture"
+/>
+
+
+
+<cloudinary-picture
   src="assets/images/slava-auchynnikau-Z4g5S4sksPQ-unsplash"
   alt="TODO: describe this image"
   width="4000"

@@ -48,7 +48,8 @@
     "node-addon-api": "^8.9.0",
     "node-gyp": "^12.4.0",
     "sharp": "^0.35.3",
-    "vite": "^7.3.5"
+    "vite": "^7.3.5",
+    "yaml": "^2.9.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
@@ -101,7 +102,6 @@
     "postcss": "8.5.12",
     "rollup": "4.59.0",
     "volar-service-yaml": "0.0.70",
-    "yaml": "2.8.3",
     "yaml-language-server": "1.20.0"
   },
   "allowScripts": {
