@@ -5,6 +5,16 @@ date: 2026-01-05
 tags: ["代码", "测试"]
 draft: false
 ---
+<cloudinary-picture
+  src="assets/images/Gulfstream-G800"
+  alt="TODO: describe this image"
+  width="1672"
+  height="941"
+  sizes="(min-width: 768px) 720px, 100vw"
+  breakpoints="50, 351, 530, 676, 812, 909, 1000"
+  picture-class="responsive-picture"
+/>
+
 
 本文测试主题对各种编程语言的代码高亮支持。
 

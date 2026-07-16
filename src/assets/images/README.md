@@ -1,4 +1,6 @@
 # Cloudinary source images
+frog4
+/Users/thor3/Documents/whono2-astro-with-jxl-works-jxl/src/assets/images/README.md
 
 Drop image files in this folder, then generate responsive breakpoints **and**
 a ready-to-paste snippet in one step:

@@ -16,6 +16,15 @@ draft: false
   picture-class="responsive-picture"
 />
 
+<cloudinary-picture
+  src="assets/images/the-metropolitan-museum-of-art-zvD1-cNLluI-unsplash"
+  alt="TODO: describe this image"
+  width="2846"
+  height="3536"
+  sizes="(min-width: 768px) 720px, 100vw"
+  breakpoints="50, 319, 439, 519, 524, 690, 703, 727, 777, 825, 855, 864, 901, 938, 982, 988, 1000"
+  picture-class="responsive-picture"
+/>
 Admin Console `/admin/`是本地后台入口，用于在 fork、clone 或自托管后接手站点配置与内容维护。
 
 它不是独立 CMS，保存操作会写回仓库里的配置或内容文件，因此适合和 Git 一起使用：改动前后可以看 diff，需要回退时也按普通项目文件处理。

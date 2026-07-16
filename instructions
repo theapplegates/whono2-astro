@@ -1,0 +1,137 @@
+Last login: Fri Jun 26 09:30:34 on ttys002
+thor3@Mac  % ls
+alim-unsplash.jpg                       clay-banks-awsOkT5bksE-unsplash.jpg     README.md
+thor3@Mac  % npm run cloudinary:breakpoints -- src/assets/images/clay-banks-awsOkT5bksE-unsplash.jpg
+
+> astro-whono@0.5.0 cloudinary:breakpoints
+> node ./scripts/cloudinary-breakpoints.mjs src/assets/images/clay-banks-awsOkT5bksE-unsplash.jpg
+
+Uploading "/Users/thor3/Documents/whono2-astro-with-jxl-works-jxl/src/assets/images/clay-banks-awsOkT5bksE-unsplash.jpg" as public_id "assets/images/clay-banks-awsOkT5bksE-unsplash"...
+Wrote 7 breakpoints for "assets/images/clay-banks-awsOkT5bksE-unsplash" to src/data/cloudinary-breakpoints.json
+50, 392, 583, 741, 913, 961, 1000
+
+Paste this into your .md post (replace the alt text):
+
+<cloudinary-picture
+  src="assets/images/clay-banks-awsOkT5bksE-unsplash"
+  alt="TODO: describe this image"
+  width="3400"
+  height="2267"
+  sizes="(min-width: 768px) 720px, 100vw"
+  breakpoints="50, 392, 583, 741, 913, 961, 1000"
+  picture-class="responsive-picture"
+/>
+
+thor3@Mac  % pwd
+/Users/thor3/Documents/whono2-astro-with-jxl-works-jxl/src/assets/images/
+thor3@Mac  % cd ..
+thor3@Mac assets % cd ..
+thor3@Mac src % cd ..
+thor3@Mac whono2-astro-with-jxl-works-jxl % nvm use 22.13.0
+Now using node v22.13.0 (npm v10.9.2)
+thor3@Mac whono2-astro-with-jxl-works-jxl % npm run dev
+
+> astro-whono@0.5.0 dev
+> astro dev
+
+[astro] `markdown.remarkPlugins`, `markdown.rehypePlugins`, and `markdown.remarkRehype` are deprecated. Pass them to `unified({...})` from `@astrojs/markdown-remark` directly instead.
+09:45:08 [WARN] [config] This project contains server-rendered routes, but no adapter is installed. This is fine for development, but an adapter will be required to build your site for production.
+9:45:08 AM [vite-plugin-svelte] no Svelte config found at /Users/thor3/Documents/whono2-astro-with-jxl-works-jxl - using default configuration.
+[vite] connected.
+09:45:08 [types] Generated 1ms
+[vite] connected.
+09:45:08 [content] Syncing content
+09:45:09 [content] Synced content
+ astro  v6.4.4 ready in 1298 ms
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+09:45:09 watching for file changes...
+09:45:11 [200] /archive/admin-console-guide/ 35ms
+09:45:21 [200] / 6ms
+09:45:21 [200] /_image/ 124ms
+09:45:50 [200] /archive/markdown-guide/ 9ms
+^C
+thor3@Mac whono2-astro-with-jxl-works-jxl %
+# Cloudinary source images
+frog4
+
+Drop image files in this folder, then generate responsive breakpoints **and**
+a ready-to-paste snippet in one step:
+
+```bash
+npm run cloudinary:breakpoints -- src/assets/images/<filename>.jpg
+```
+
+The script uploads the image to Cloudinary, writes the generated widths to
+`src/data/cloudinary-breakpoints.json`, and prints a `<cloudinary-picture>`
+snippet to stdout. Copy that snippet into a `.md` post, replace the alt text,
+done.
+
+## One-time setup
+
+Add these to `.env` at the project root (already gitignored — never commit it):
+
+```
+PUBLIC_CLOUDINARY_CLOUD_NAME=paulapplegate-com
+CLOUDINARY_CLOUD_NAME=paulapplegate-com
+CLOUDINARY_API_KEY=your-key
+CLOUDINARY_API_SECRET=your-secret
+```
+
+The build only needs the **cloud name** to render images. The API key/secret are
+used solely by the upload script above.
+
+## Paste the printed snippet into a `.md` post
+
+```md
+<cloudinary-picture
+  src="assets/images/<filename>"
+  alt="TODO: describe this image"
+  width="2000"
+  height="1500"
+  sizes="(min-width: 768px) 720px, 100vw"
+  breakpoints="200, 382, 527, 730, 1024, 2000"
+  picture-class="responsive-picture"
+/>
+```
+
+No imports needed — a rehype plugin renders `<cloudinary-picture>` at build time
+into a `<picture>` with JXL → AVIF → WebP `<source>`s plus a WebP `<img>`
+fallback. (The script fills in the real `width`, `height`, and `breakpoints`
+from the upload response — only the `alt` is yours to write.)
+
+## Attributes
+
+| Attribute        | Required | Notes |
+| --------------- | -------- | ----- |
+| `src`           | yes      | Cloudinary public ID: `assets/images/<filename>` (no `src/`, no extension). |
+| `alt`           | yes      | Must be non-empty — the build fails otherwise. |
+| `width`         | yes      | Intrinsic image width in px. |
+| `height`        | yes      | Intrinsic image height in px. |
+| `breakpoints`   | yes      | Comma-separated widths, or a JSON array like `[200, 382]`. |
+| `sizes`         | rec.     | CSS `sizes` so the browser picks a source. |
+| `picture-class` | opt.     | Class on the wrapper `<picture>` (a styling hook). |
+| `loading`       | opt.     | `lazy` (default) or `eager`. |
+| `decoding`      | opt.     | `async` (default) or `sync`. |
+| `transformations` | opt.   | JSON object of extra Cloudinary transforms, e.g. `{"crop":"fill","height":500}` or `{"rawTransformations":["g_auto"]}`. |
+
+## `.mdx` / `.astro` posts (optional)
+
+A `<Picture>` component is still available for `.mdx`/`.astro` if you want typed
+props and imports. The breakpoints JSON file is just a cached record of what the
+script generated — `.md` posts paste the widths directly and don't import it, so
+there's no need to index a JSON object by `publicId`.
+
+```mdx
+import Picture from "@/components/Picture.astro";
+
+<Picture
+  src="assets/images/<filename>"
+  alt="..."
+  width={2000}
+  height={1500}
+  sizes="(min-width: 768px) 720px, 100vw"
+  breakpoints={[200, 382, 527, 730, 1024, 2000]}
+  pictureClass="responsive-picture"
+/>
+```
