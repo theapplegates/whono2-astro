@@ -7,6 +7,17 @@ tags: [ "Admin Console", "指南" ]
 draft: false
 ---
 <cloudinary-picture
+  src="assets/images/slava-auchynnikau-Z4g5S4sksPQ-unsplash"
+  alt="TODO: describe this image"
+  width="4000"
+  height="2667"
+  sizes="(min-width: 768px) 720px, 100vw"
+  breakpoints="50, 431, 638, 746, 968, 984, 1000"
+  picture-class="responsive-picture"
+/>
+
+
+<cloudinary-picture
   src="assets/images/alim-unsplash"
   alt="TODO: describe this image"
   width="4018"

@@ -23,6 +23,8 @@ PUBLIC_CLOUDINARY_CLOUD_NAME=paulapplegate-com
 CLOUDINARY_CLOUD_NAME=paulapplegate-com
 CLOUDINARY_API_KEY=your-key
 CLOUDINARY_API_SECRET=your-secret
+CLOUDINARY_API_KEY=""
+CLOUDINARY_API_SECRET=""
 ```
 
 The build only needs the **cloud name** to render images. The API key/secret are
