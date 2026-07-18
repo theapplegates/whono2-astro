@@ -6,11 +6,6 @@ badge: Astro
 tags: ["Astro", "Web Development", "Tutorial"]
 draft: false
 ---
-
-
-
-
-
 <Cloudinary-Picture
   src="assets/images/The-Gulfstream-G800.20250416"
   alt="TODO: describe this image"
