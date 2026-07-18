@@ -103,7 +103,8 @@ const bitsImage = z.object({
       if (!normalizeBitsImageSource(value)) {
         ctx.addIssue({
           code: 'custom',
-          message: 'images[].src only allowed public/** Relative image path under or https:// remote URL，Don't bring it public/、Don't take / beginning，Also don't use http、..、?、#'
+          // FIXED: Wrapped in backticks so single quotes don't break the string
+          message: `images[].src only allowed public/** Relative image path under or https:// remote URL，Don't bring it public/、Don't take / beginning，Also don't use http、..、?、#`
         });
       }
     })
