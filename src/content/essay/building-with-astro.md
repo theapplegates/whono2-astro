@@ -7,6 +7,20 @@ tags: ["Astro", "Web Development", "Tutorial"]
 draft: false
 ---
 
+
+
+
+
+<Cloudinary-Picture
+  src="assets/images/The-Gulfstream-G800.20250416"
+  alt="TODO: describe this image"
+  width="3600"
+  height="2400"
+  devices="1200|40|original,992|60|16:9,768|70|4:3,0|100|1:1"
+  breakpoints="50, 432, 647, 858, 1000"
+  picture-class="responsive-picture"
+/>
+
 Astro is a modern web framework built for content-heavy sites that need strong performance without giving up developer ergonomics.
 
 ## Why Astro?
