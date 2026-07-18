@@ -652,7 +652,7 @@ export const initBitsDraft = (): BitsDraftController | null => {
     const authorName = normalizeAuthorName(authorNameEl?.value ?? '');
     const authorAvatar = normalizeBitsAvatarPath(authorAvatarEl?.value ?? '');
     if (authorAvatar === undefined) {
-      setStatus('Only relative image paths are allowed for author avatars（For example author/avatar.webp），Don't bring it public/、Don't take / beginning，Also don't use URL、..、?、#。', 'error');
+      setStatus(`Only relative image paths are allowed for author avatars（For example author/avatar.webp），Don't bring it public/、Don`t take / beginning，Also don't use URL、..、?、#。', 'error');
       authorAvatarEl?.focus();
       return null;
     }

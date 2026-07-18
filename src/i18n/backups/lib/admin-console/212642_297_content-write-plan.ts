@@ -233,7 +233,7 @@ export const buildBitsFrontmatterFromValues = (
     issues.push(
       createIssue(
         'authorAvatar',
-        'author.avatar Only relative image paths allowed（For example author/avatar.webp），Don't bring it public/、Don't take / beginning，Also don't use URL、..、?、#'
+        `author.avatar Only relative image paths allowed（For example author/avatar.webp），Don't bring it public/、Don`t take / beginning，Also don't use URL、..、?、#'
       )
     );
   }

@@ -326,7 +326,7 @@ const createBitsImagesIssues = (sources: readonly AdminContentSourceRecord[]): A
           createIssue(
             'bits-images',
             'bits.author.avatar Illegal path',
-            'author.avatar Only relative image paths allowed，Don't bring it public/、/、URL、..、? 或 #。',
+            `author.avatar Only relative image paths allowed，Don't bring it public/、/、URL、..、? 或 #。`,
             {
               relativePath: source.relativePath,
               fieldPath: 'author.avatar',

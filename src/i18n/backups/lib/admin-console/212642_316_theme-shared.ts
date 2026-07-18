@@ -912,7 +912,7 @@ export const validateAdminThemeSettings = (
     if (normalizeAdminBitsAvatarPath(settings.page.bits.defaultAuthor.avatar) === undefined) {
       pushIssue(
         'page.bits.defaultAuthor.avatar',
-        'Bits The default avatar only allows relative image paths（For example author/avatar.webp），Don't bring it public/、Don't take / beginning，Also don't include URL、..、?、#'
+        `Bits The default avatar only allows relative image paths（For example author/avatar.webp），Don't bring it public/、Don`t take / beginning，Also don't include URL、..、?、#'
       );
     }
   }
